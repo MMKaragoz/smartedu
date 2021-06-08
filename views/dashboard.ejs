@@ -103,7 +103,14 @@ if (user) { %> <% if (user.role === "student") { %>
               </h2>
             </div>
             <div class="course-desc">
-              <p><%= course.description %></p>
+              <p>
+                <% if (course.description.length > 500) {%> <%=
+                course.description.substring(0, 50) + "..." %> <% } %>
+              </p>
+              <p>
+                <% if (course.description.length < 50) {%> <%=
+                course.description %> <% } %>
+              </p>
             </div>
           </div>
         </div>
