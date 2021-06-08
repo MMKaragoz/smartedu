@@ -1,17 +1,22 @@
+const bcrypt = require('bcrypt');
+const { validationResult } = require('express-validator');
 const User = require('../models/User');
 const Category = require('../models/Category');
 const Course = require('../models/Course');
-const bcrypt = require('bcrypt');
 
 exports.createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
     res.status(201).redirect('/login');
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      error,
+    const errors = validationResult(req);
+    console.log(errors.array()[0].msg);
+
+    errors.array().map((err) => {
+      req.flash('error', `${err.msg}`);
     });
+
+    res.status(404).redirect('/register');
   }
 };
 
@@ -22,10 +27,18 @@ exports.loginUser = async (req, res) => {
     await User.findOne({ email }, (err, user) => {
       if (user) {
         bcrypt.compare(password, user.password, (err, same) => {
-          // user session
-          req.session.userID = user._id;
-          res.status(200).redirect('/users/dashboard');
+          if (same) {
+            // user session
+            req.session.userID = user._id;
+            res.status(200).redirect('/users/dashboard');
+          } else {
+            req.flash('error', 'Your password is not correct!');
+            res.status(404).redirect('/login');
+          }
         });
+      } else {
+        req.flash('error', 'User is not exist!');
+        res.status(404).redirect('/login');
       }
     });
   } catch (error) {
