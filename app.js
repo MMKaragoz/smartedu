@@ -41,7 +41,10 @@ app.use(
     secret: 'my_keyboard_cat',
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: 'mongodb://localhost/smartedu-db' }),
+    store: MongoStore.create({
+      mongoUrl:
+        'mongodb+srv://dbUser:cfhh8AjxfYDjtpky@cluster0.rlj6o.mongodb.net/smartedu-db?retryWrites=true&w=majority',
+    }),
   })
 );
 app.use(flash());
