@@ -62,11 +62,14 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="message-box">
                         
-                        <h2><%= lastTwoCourses[0].name%></h2>
-                        <p><%= lastTwoCourses[0].description%></p>
+						<% if (lastTwoCourses[0]) { %>
 
+							<h2><%= lastTwoCourses[0].name%></h2>
+							<p><%= lastTwoCourses[0].description%></p>
+						
 
-                        <a href="/courses/<%= lastTwoCourses[0].slug%>" class="hover-btn-new orange"><span>Learn More</span></a>
+                       	 	<a href="/courses/<%= lastTwoCourses[0].slug%>" class="hover-btn-new orange"><span>Learn More</span></a>
+						<% } %>
                     </div><!-- end messagebox -->
                 </div><!-- end col -->
 				
@@ -85,12 +88,14 @@
 				
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="message-box">
-                        <h2><%= lastTwoCourses[1].name%></h2>
-                        <p><%= lastTwoCourses[1].description%></p>
 
-                       
+						<% if (lastTwoCourses[1]) { %>
+							<h2><%= lastTwoCourses[1].name%></h2>
+							<p><%= lastTwoCourses[1].description%></p>
 
-                        <a href="/courses/<%= lastTwoCourses[1].slug%>" class="hover-btn-new orange"><span>Learn More</span></a>
+							<a href="/courses/<%= lastTwoCourses[1].slug%>" class="hover-btn-new orange"><span>Learn More</span></a>
+
+						<% } %>
                     </div><!-- end messagebox -->
                 </div><!-- end col -->
 				
